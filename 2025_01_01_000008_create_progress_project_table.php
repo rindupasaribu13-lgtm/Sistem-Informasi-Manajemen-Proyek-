@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('progress_project', function (Blueprint $table) {
+            $table->id('id_progress');
+            $table->foreignId('id_project')->constrained('project', 'id_project');
+            $table->date('tanggal');
+            $table->unsignedTinyInteger('persentase')->default(0);
+            $table->text('keterangan')->nullable();
+            $table->foreignId('dibuat_oleh')->constrained('user', 'id_user');
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('progress_project');
+    }
+};
